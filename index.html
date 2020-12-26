@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Countries App</title>
+
+    <link rel="shortcut icon" href="./assets/images/favicon.png" />
+
+    <link rel="stylesheet" href="./assets/css/bootstrap.css" />
+
+    <script defer src="./assets/js/vue.js"></script>
+
+    <script defer src="./assets/js/app.js"></script>
+  </head>
+  <body>
+    <div class="container my-5" id="app">
+      <h1>Countries App {{search}}</h1>
+
+      <input
+        v-model="search"
+        type="text"
+        placeholder="Search"
+        class="d-block my-3 ml-auto"
+      />
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">
+              Name
+              <span v-if="sort" @click="sort = !sort">&#x2b06;</span>
+              <span v-else @click="sort = !sort">&#x2b07;</span>
+            </th>
+            <th scope="col">Code</th>
+            <th scope="col">Capital</th>
+            <th scope="col">Flag</th>
+            <th scope="col">Borders</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in countriesList">
+            <td>{{item.name}}</td>
+            <td>{{item.alpha2Code}}</td>
+            <td>{{item.capital}}</td>
+            <td>
+              <img style="width: 42px" class="shadow" v-bind:src="item.flag" />
+            </td>
+            <td>
+              <span v-for="(neib, i) in item.borders">
+                {{neib}}{{i == item.borders.length - 1 ? ". " : ", "}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
