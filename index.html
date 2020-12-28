@@ -19,11 +19,21 @@
     <div class="container my-5" id="app">
       <h1>Countries App {{search}}</h1>
 
+      <select
+        v-model="selected"
+        class="d-block my-3 ml-auto w-25"
+        v-model="selected"
+      >
+        <option value="All">All</option>
+        <option v-for="item in rates" @change="countriesList">
+          {{item.cc}}
+        </option>
+      </select>
       <input
         v-model="search"
         type="text"
         placeholder="Search"
-        class="d-block my-3 ml-auto"
+        class="d-block my-3 ml-auto w-25"
       />
 
       <table class="table">
@@ -34,25 +44,27 @@
               <span v-if="sort" @click="sort = !sort">&#x2b06;</span>
               <span v-else @click="sort = !sort">&#x2b07;</span>
             </th>
-            <th scope="col">Code</th>
-            <th scope="col">Capital</th>
             <th scope="col">Flag</th>
-            <th scope="col">Borders</th>
+            <th scope="col">Name</th>
+            <th scope="col">
+              Rate
+              <span v-if="currencySort" @click="currencySort = !currencySort"
+                >&#x2b06;</span
+              >
+              <span v-else @click="currencySort = !currencySort">&#x2b07;</span>
+            </th>
+            <th scope="col">Date</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in countriesList">
+          <tr v-for="item in filteArray">
             <td>{{item.name}}</td>
-            <td>{{item.alpha2Code}}</td>
-            <td>{{item.capital}}</td>
             <td>
               <img style="width: 42px" class="shadow" v-bind:src="item.flag" />
             </td>
-            <td>
-              <span v-for="(neib, i) in item.borders">
-                {{neib}}{{i == item.borders.length - 1 ? ". " : ", "}}
-              </span>
-            </td>
+            <td>({{item.currencies[0].code}} - {{item.currencies[0].txt}})</td>
+            <td>Курс: {{item.currencies[0].rate}}</td>
+            <td>{{item.exchangedate}}</td>
           </tr>
         </tbody>
       </table>
