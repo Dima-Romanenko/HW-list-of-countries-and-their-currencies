@@ -8,30 +8,57 @@ Vue.createApp({
       countries: [],
       rates: [],
       search: "",
-      sort: "none",
+      titleUp: true,
+      titleDown: false,
+      rateUp: "none",
+      rateDown: false,
       currencySort: "none",
       selected: "All",
       selectCheck: false,
       res: [],
     };
   },
+  methods: {
+    titleUpActive: function () {
+      this.titleUp = !this.titleUp;
+      this.titleDown = !this.titleDown;
+      this.rateUp = "none";
+      this.rateDown = false;
+    },
+    titleDownActive: function () {
+      this.titleDown = !this.titleDown;
+      this.titleUp = !this.titleUp;
+      this.rateUp = "none";
+      this.rateDown = false;
+    },
+    rateUpActive: function () {
+      this.rateUp = !this.rateUp;
+      this.rateDown = !this.rateDown;
+      this.titleDown = "none";
+      this.titleUp = false;
+    },
+    rateDownActive: function () {
+      this.rateDown = !this.rateDown;
+      this.rateUp = !this.rateUp;
+      this.titleDown = "none";
+      this.titleUp = false;
+    },
+  },
   computed: {
     filteArray: function () {
       this.res = this.countries.filter((item) =>
         item.name.toLowerCase().includes(this.search.toLowerCase())
       );
-      if (this.sort !== "none") {
-        this.currencySort = "none";
-        if (this.sort) {
+      if (this.titleUp !== "none") {
+        if (this.titleUp) {
           this.countries.sort((a, b) => (a.name > b.name ? 1 : -1));
         } else {
           this.countries.sort((a, b) => (a.name > b.name ? -1 : 1));
         }
       }
 
-      if (this.currencySort !== "none") {
-        this.sort = "none";
-        if (this.currencySort) {
+      if (this.rateUp !== "none") {
+        if (this.rateUp) {
           this.countries.sort(
             (a, b) => a.currencies[0].rate - b.currencies[0].rate
           );

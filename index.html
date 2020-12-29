@@ -41,17 +41,17 @@
           <tr>
             <th scope="col">
               Name
-              <span v-if="sort" @click="sort = !sort">&#x2b06;</span>
-              <span v-else @click="sort = !sort">&#x2b07;</span>
+              <span v-if="titleUp" @click="titleUpActive">&#x2b06;</span>
+              <span v-if="titleDown" @click="titleDownActive">&#x2b07;</span>
             </th>
             <th scope="col">Flag</th>
             <th scope="col">Name</th>
             <th scope="col">
               Rate
-              <span v-if="currencySort" @click="currencySort = !currencySort"
+              <span v-if="rateUp" @click="rateUpActive"
                 >&#x2b06;</span
               >
-              <span v-else @click="currencySort = !currencySort">&#x2b07;</span>
+              <span v-if="rateDown" @click="rateDownActive">&#x2b07;</span>
             </th>
             <th scope="col">Date</th>
           </tr>
